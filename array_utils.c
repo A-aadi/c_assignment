@@ -62,6 +62,8 @@ int isDivisible(void *hint, void *item){
 	return 0;
 };
 
+// -----------------------------------------------------------------------------------
+
 void* findFirst(Array_util util, MatchFunc* match, void* hint){
 	void *base = util.base;
 	int size_of_a_element = util.type_size;
@@ -73,6 +75,8 @@ void* findFirst(Array_util util, MatchFunc* match, void* hint){
 	};
 	return (void *)NULL;
 };
+
+// -----------------------------------------------------------------------------------
 
 void *findLast(Array_util util, MatchFunc *match, void *hint){
 	void *base = util.base + (util.type_size * util.length);
@@ -86,7 +90,20 @@ void *findLast(Array_util util, MatchFunc *match, void *hint){
 	return (void *)NULL;
 };
 
+// -----------------------------------------------------------------------------------
 
+int count(Array_util util, MatchFunc* match, void* hint){
+	void *base = util.base;
+	int size_of_a_element = util.type_size;
+	int count = 0;
+	for (int i = 0; i < util.length; ++i)
+	{
+		if(match(hint, base))
+			count++;
+		base = base + size_of_a_element;
+	};
+	return count;
+};
 
 
 
