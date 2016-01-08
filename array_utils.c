@@ -34,14 +34,12 @@ Array_util resize(Array_util util , int length){
 // -----------------------------------------------------------------------------------
 
 int findIndex(Array_util util, void *element){
-	int size_of_a_element = util.type_size;
 	void *base = util.base;
-	for (int i = 0; i < util.length; ++i)
-	{
-		int comparison = memcmp(base, element, size_of_a_element);
+	for (int i = 0; i < util.length; i++){
+		int comparison = memcmp(base, element, util.type_size);
 		if(comparison == 0)
 			return i;
-		base = base + size_of_a_element;
+		base += util.type_size;
 	};
 	return -1;
 };
@@ -54,10 +52,10 @@ void dispose(Array_util a){
 
 // -----------------------------------------------------------------------------------
 
-int isDivisible(void *hint, void *item){
+int isGreater(void *hint, void *item){
 	int a = *(int *)hint;
 	int b = *(int *)item;
-	if(b%a == 0)
+	if(b > a)
 		return 1;
 	return 0;
 };
@@ -66,12 +64,11 @@ int isDivisible(void *hint, void *item){
 
 void* findFirst(Array_util util, MatchFunc* match, void* hint){
 	void *base = util.base;
-	int size_of_a_element = util.type_size;
 	for (int i = 0; i < util.length; ++i)
 	{
 		if(match(hint, base))
 			return base;
-		base = base + size_of_a_element;
+		base += util.type_size;
 	};
 	return (void *)NULL;
 };
@@ -80,12 +77,11 @@ void* findFirst(Array_util util, MatchFunc* match, void* hint){
 
 void *findLast(Array_util util, MatchFunc *match, void *hint){
 	void *base = util.base + (util.type_size * util.length);
-	int size_of_a_element = util.type_size;
 	for (int i = 0; i < util.length; ++i)
 	{
 		if(match(hint, base))
 			return base;
-		base = base - size_of_a_element;
+		base -= util.type_size;
 	}
 	return (void *)NULL;
 };
@@ -94,17 +90,32 @@ void *findLast(Array_util util, MatchFunc *match, void *hint){
 
 int count(Array_util util, MatchFunc* match, void* hint){
 	void *base = util.base;
-	int size_of_a_element = util.type_size;
 	int count = 0;
 	for (int i = 0; i < util.length; ++i)
 	{
 		if(match(hint, base))
 			count++;
-		base = base + size_of_a_element;
+		base += util.type_size;
 	};
 	return count;
 };
 
+// -----------------------------------------------------------------------------------
+
+int filter(Array_util util, MatchFunc* match, void* hint, void** destination, int maxItems){
+	void *base = util.base;
+	int count =0;
+	for (int i = 0; i < util.length; i++){
+		if(match(hint, base) == 1){
+			destination[count] = base;
+			count++;
+		}
+		base += util.type_size;
+	};
+	return count;
+};
+
+// void map(ArrayUtil source, ArrayUtil destination, ConvertFunc* convert, void* hint)
 
 
 
