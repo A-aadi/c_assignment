@@ -1,8 +1,3 @@
-
-#define True 1
-#define False 0
-
-
 typedef struct{
 	void *base;
 	int length;
