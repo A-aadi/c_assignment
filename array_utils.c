@@ -115,7 +115,15 @@ int filter(Array_util util, MatchFunc* match, void* hint, void** destination, in
 	return count;
 };
 
-// void map(ArrayUtil source, ArrayUtil destination, ConvertFunc* convert, void* hint)
+void map(Array_util source, Array_util destination, ConvertFunc* convert, void* hint){
+	void *base = source.base;
+	void *dest = destination.base; 
+	for (int i = 0; i < source.length; i++){
+		convert(hint, base, dest);
+		base += source.type_size;
+		dest += destination.type_size;
+	};
+}
 
 
 
