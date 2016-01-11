@@ -123,7 +123,19 @@ void map(Array_util source, Array_util destination, ConvertFunc* convert, void* 
 		base += source.type_size;
 		dest += destination.type_size;
 	};
-}
+};
+
+void forEach(Array_util util, OperationFunc* operation, void* hint){
+	void *base = util.base;
+	for (int i = 0; i < util.length; ++i){
+		operation(hint, base);
+		base +=util.type_size;
+	};
+};
+
+// void* reduce(Array_util util, ReducerFunc* reducer, void* hint, void* intialValue){
+
+// };
 
 
 

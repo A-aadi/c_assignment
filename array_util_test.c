@@ -211,6 +211,7 @@ void increment_by_hint(void* hint, void* sourceItem, void* destinationItem){
 	*dest = num + source;
 };
 
+// void decrement_by_int(void *hint, void*)
 void test_for_map_for_int(){
 	Array_util a = create(sizeof(int), 4);
 	Array_util b =create(sizeof(void*), 4);
@@ -248,6 +249,30 @@ void test_filter_method_for_int(){
 	assert(((int **)b.base)[1] == &arr[2]);
 };
 
+void decrement_by_hint(void *hint, void*item){
+	int num = *(int *)hint;
+	int *source = (int *)item;
+	*source = (*source) + num;
+}
+void test_for_forEach(){
+	Array_util a = create(sizeof(int), 4);
+
+	int *arr = a.base;
+	arr[0] = 12;
+	arr[1] = 13;
+	arr[2] = 14;
+	arr[3] = 15;
+	int hint = 4;
+	OperationFunc *func = &decrement_by_hint;
+	forEach(a, func, &hint);
+	assert(arr[0] == 16);
+	assert(arr[1] == 17);
+};
+
+// void test_for_reduce(){
+
+// }
+
 // -----------------------------------------------------------------------------------
 
 int main(){
@@ -265,6 +290,8 @@ int main(){
 	test_filter_method_for_int();
 	// test_filter_method_for_char();
 	test_for_map_for_int();
+	test_for_forEach();
+	// test_for_reduce();
 	return 0;
 };
 
