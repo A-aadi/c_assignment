@@ -12,7 +12,7 @@ typedef struct{
 typedef int(MatchFunc)(void*, void*);
 typedef void(ConvertFunc)(void*, void*, void*);
 typedef void(OperationFunc)(void*, void*);
-typedef void*(ReducerFunc)(void*, void*);
+typedef void*(ReducerFunc)(void*, void*, void*);
 
 Array_util create(int, int);
 int are_equal(Array_util , Array_util);
@@ -30,7 +30,7 @@ void increment_by_hint(void*, void*, void*);
 void decrement_by_hint(void*, void*);
 void map(Array_util, Array_util, ConvertFunc* , void*);
 void forEach(Array_util, OperationFunc*, void*);
-// void* reduce(Array_util, ReducerFunc*, void*, void*);
+void* reduce(Array_util, ReducerFunc*, void*, void*);
 
 
 

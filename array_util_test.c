@@ -269,9 +269,29 @@ void test_for_forEach(){
 	assert(arr[1] == 17);
 };
 
-// void test_for_reduce(){
+void *give_the_highest(void* hint, void* previousItem, void* item){
+	int previousVlaue = *(int *)previousItem;
+	int nextValue = *(int *)item;
+	if(nextValue > previousVlaue){
+		previousItem = item;
+	}
+	return previousItem;
 
-// }
+}	
+void test_for_reduce(){
+	Array_util a = create(sizeof(int), 4);
+
+	int *arr = a.base;
+	arr[0] = 12;
+	arr[1] = 13;
+	arr[2] = 14;
+	arr[3] = 15;
+	int hint = 4;
+	int intialValue = 0;
+	ReducerFunc *reducer = &give_the_highest;
+	void *reduced_value = reduce(a, reducer,&hint,&intialValue);
+	assert(*((int *)reduced_value) == 15);
+}
 
 // -----------------------------------------------------------------------------------
 
@@ -291,7 +311,7 @@ int main(){
 	// test_filter_method_for_char();
 	test_for_map_for_int();
 	test_for_forEach();
-	// test_for_reduce();
+	test_for_reduce();
 	return 0;
 };
 

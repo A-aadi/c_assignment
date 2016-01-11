@@ -133,9 +133,16 @@ void forEach(Array_util util, OperationFunc* operation, void* hint){
 	};
 };
 
-// void* reduce(Array_util util, ReducerFunc* reducer, void* hint, void* intialValue){
-
-// };
+void* reduce(Array_util util, ReducerFunc* reducer, void* hint, void* initialValue){
+	void * previousValue = initialValue;
+	void *item = util.base;
+	for (int i = 0; i < util.length; ++i){
+		void* reduced_item = reducer(&hint, previousValue,item);
+		previousValue = reduced_item;
+		item += util.type_size;
+	};
+	return previousValue;
+};
 
 
 
