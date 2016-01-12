@@ -48,9 +48,30 @@ void test_check_last_element_of_list(){
 	assert(*(int *)list.last_element->value == 8);
 };
 
+void incremnt_by_one(void *ele){
+	int *element = (int *)ele;
+	*element = *element + 1;
+};
+
+void test_for_increment_of_each_element_by_1_of_list(){
+	LinkedList list = createList();
+	int ele1 = 12;
+	int ele2 = 7;
+	int ele3 = 8;
+
+	add_to_list(&list, &ele1);
+	add_to_list(&list, &ele2);
+	add_to_list(&list, &ele3);
+	ElementProcessor e = &incremnt_by_one;
+	forEach(list, e);
+	assert(*((int *)list.first_element->value) == 13);
+	assert(*((int *)list.last_element->value) == 9);
+};
+
 int main(){
 	test_for_create();
 	test_for_add_to_list();
 	test_check_first_element_of_list();
 	test_check_last_element_of_list();
+	test_for_increment_of_each_element_by_1_of_list();
 }
