@@ -26,3 +26,7 @@ int add_to_list(LinkedList *list, void *ele){
 	list->number_of_elements += 1;
 	return list->number_of_elements;
 };
+
+void *get_first_element(LinkedList list){
+	return list.first_element;
+};

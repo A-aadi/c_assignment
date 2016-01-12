@@ -24,7 +24,18 @@ void test_for_add_to_list(){
 	assert(*(int *)list.last_element->value == 8);
 };
 
+void test_check_first_element_of_list(){
+	LinkedList list = createList();
+	int ele1 = 12;
+	int ele2 = 7;
+	add_to_list(&list, &ele1);
+	add_to_list(&list, &ele2);
+	void *first_ele = get_first_element(list);
+	assert(*(int *)list.first_element->value == 12);
+};
+
 int main(){
 	test_for_create();
 	test_for_add_to_list();
+	test_check_first_element_of_list();
 }
