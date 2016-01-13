@@ -98,6 +98,33 @@ void test_for_get_element_at_invalide_index(){
 	assert(ele == NULL);
 };
 
+void test_for_index_of_method_for_valid_elements(){
+	LinkedList list = createList();
+	int ele1 = 12;
+	int ele2 = 7;
+	int ele3 = 8;
+
+	add_to_list(&list, &ele1);
+	add_to_list(&list, &ele2);
+	add_to_list(&list, &ele3);
+
+	int index = indexOf(list,&ele3);
+	assert(index == 2);
+};
+
+void test_for_index_of_method_for_invalid_elements(){
+	LinkedList list = createList();
+	int ele1 = 12;
+	int ele2 = 7;
+	int ele3 = 8;
+
+	add_to_list(&list, &ele1);
+	add_to_list(&list, &ele2);
+	add_to_list(&list, &ele3);
+	char a = 'a';
+	int index = indexOf(list,&a);
+	assert(index == -1);
+};
 
 int main(){
 	test_for_create();
@@ -107,4 +134,6 @@ int main(){
 	test_for_increment_of_each_element_by_1_of_list();
 	test_for_get_element_at_valide_index();
 	test_for_get_element_at_invalide_index();
+	test_for_index_of_method_for_valid_elements();
+	test_for_index_of_method_for_invalid_elements();
 }

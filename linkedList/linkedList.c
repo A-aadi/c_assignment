@@ -55,8 +55,15 @@ void * getElementAt(LinkedList list, int index){
 };
 
 int indexOf(LinkedList list, void *ele){
-
-}
+	int count = 0;
+	for(int i = 0; i < list.number_of_elements;i++){
+		if(list.first_element ->value == ele)
+			return count;
+		count++;
+		list.first_element = list.first_element->next;
+	};
+	return -1;
+};
 
 
 
