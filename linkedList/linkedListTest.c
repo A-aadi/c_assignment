@@ -77,10 +77,10 @@ void test_for_get_element_at_valide_index(){
 	add_to_list(&list, &ele1);
 	add_to_list(&list, &ele2);
 	add_to_list(&list, &ele3);
-	void  *ele = getElementAt(list, 2);
-	assert(*((int *)ele) == 7);
-	ele = getElementAt(list, 1);
+	void  *ele = getElementAt(list, 0);
 	assert(*((int *)ele) == 12);
+	ele = getElementAt(list, 2);
+	assert(*((int *)ele) == 8);
 };
 
 void test_for_get_element_at_invalide_index(){
@@ -92,7 +92,7 @@ void test_for_get_element_at_invalide_index(){
 	add_to_list(&list, &ele1);
 	add_to_list(&list, &ele2);
 	add_to_list(&list, &ele3);
-	void  *ele = getElementAt(list, 0);
+	void  *ele = getElementAt(list, 10);
 	assert(ele == NULL);
 	ele = getElementAt(list, -1);
 	assert(ele == NULL);

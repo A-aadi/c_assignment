@@ -44,7 +44,7 @@ void forEach(LinkedList list, ElementProcessor e){
 };
 
 void * getElementAt(LinkedList list, int index){
-	int count = 1;
+	int count = 0;
 	for(int i = 0; i < list.number_of_elements;i++){
 		if(count == index)
 			return list.first_element->value;
@@ -53,5 +53,10 @@ void * getElementAt(LinkedList list, int index){
 	}
 	return NULL;
 };
+
+int indexOf(LinkedList list, void *ele){
+
+}
+
 
 
