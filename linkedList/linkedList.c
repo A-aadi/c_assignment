@@ -41,4 +41,17 @@ void forEach(LinkedList list, ElementProcessor e){
 		e(list.first_element->value);
 		list.first_element = list.first_element -> next;
 	};
-}
+};
+
+void * getElementAt(LinkedList list, int index){
+	int count = 1;
+	for(int i = 0; i < list.number_of_elements;i++){
+		if(count == index)
+			return list.first_element->value;
+		count++;
+		list.first_element = list.first_element->next;
+	}
+	return NULL;
+};
+
+

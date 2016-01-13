@@ -68,10 +68,43 @@ void test_for_increment_of_each_element_by_1_of_list(){
 	assert(*((int *)list.last_element->value) == 9);
 };
 
+void test_for_get_element_at_valide_index(){
+	LinkedList list = createList();
+	int ele1 = 12;
+	int ele2 = 7;
+	int ele3 = 8;
+
+	add_to_list(&list, &ele1);
+	add_to_list(&list, &ele2);
+	add_to_list(&list, &ele3);
+	void  *ele = getElementAt(list, 2);
+	assert(*((int *)ele) == 7);
+	ele = getElementAt(list, 1);
+	assert(*((int *)ele) == 12);
+};
+
+void test_for_get_element_at_invalide_index(){
+	LinkedList list = createList();
+	int ele1 = 12;
+	int ele2 = 7;
+	int ele3 = 8;
+
+	add_to_list(&list, &ele1);
+	add_to_list(&list, &ele2);
+	add_to_list(&list, &ele3);
+	void  *ele = getElementAt(list, 0);
+	assert(ele == NULL);
+	ele = getElementAt(list, -1);
+	assert(ele == NULL);
+};
+
+
 int main(){
 	test_for_create();
 	test_for_add_to_list();
 	test_check_first_element_of_list();
 	test_check_last_element_of_list();
 	test_for_increment_of_each_element_by_1_of_list();
+	test_for_get_element_at_valide_index();
+	test_for_get_element_at_invalide_index();
 }
