@@ -229,7 +229,24 @@ void test_for_map_in_LinkedList(){
 	assert(*(int *)mapped_list.last_element->value == 14);
 	assert(*(int *)mapped_list.first_element->value == 7);
 	assert(mapped_list.number_of_elements == 4);
-}
+};
+
+void test_for_asArray(){
+	LinkedList list = createList();
+	int ele1 = 2;
+	int ele2 = 7;
+	int ele3 = 8;
+
+	add_to_list(&list, &ele1);
+	add_to_list(&list, &ele2);
+	add_to_list(&list, &ele3);
+	void  *array[5];
+	int arr_length = asArray(list,array, 3);
+	assert(arr_length == 3);
+	assert(*(int *)array[0] = 2);
+	assert(*(int *)array[arr_length-1] = 8);
+};
+
 int main(){
 	test_for_create();
 	test_for_add_to_list();
@@ -245,4 +262,5 @@ int main(){
 	test_for_filter_in_linkedList();
 	test_for_reverse_method_in_linkedList();
 	test_for_map_in_LinkedList();
+	test_for_asArray();
 }

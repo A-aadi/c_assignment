@@ -111,3 +111,17 @@ LinkedList map(LinkedList list, ConvertFunc *convertor,void *hint){
 	};
 	return mapped_list;
 };
+
+int asArray(LinkedList list, void ** arr, int maxElements){
+	int counter = 0;
+	Element *list_ele = list.first_element;
+	for(int i =0; i<maxElements; i++){
+		if(list_ele == NULL){
+			return counter;
+		}
+		arr[counter] = list_ele->value;
+		list_ele = list_ele->next;
+		counter++;
+	}
+	return counter;
+};

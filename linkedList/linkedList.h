@@ -25,3 +25,4 @@ LinkedList filter(LinkedList, MatchFunc, void*);
 // void check_even(void *, void*);
 LinkedList reverse(LinkedList);
 LinkedList map(LinkedList, ConvertFunc, void * );
+int asArray(LinkedList list, void ** arr, int maxElements);
