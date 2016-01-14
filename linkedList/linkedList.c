@@ -82,6 +82,13 @@ void * deleteElementAt(LinkedList *list, int index){
 	return NULL;
 };
 
-LinkedList filter(LinkedList list,  MatchFunc* func, void * hint){
-
+LinkedList filter(LinkedList list,  MatchFunc *match_func, void * hint){
+	LinkedList filtered_list = createList();
+	for(int i =0; i<list.number_of_elements; i++){
+		if(match_func(list.first_element->value,hint)==1){
+			add_to_list(&filtered_list, list.first_element->value);
+		}
+		list.first_element = list.first_element->next;
+	}
+	return filtered_list;
 };

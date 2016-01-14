@@ -10,7 +10,7 @@ typedef struct{
 }LinkedList;
 
 typedef void (*ElementProcessor)(void *);
-typedef void (MatchFunc)(void *,void *);
+typedef int (MatchFunc)(void *,void *);
 
 LinkedList createList(void);
 int add_to_list(LinkedList *,void *);
@@ -21,3 +21,4 @@ void * getElementAt(LinkedList, int);
 int indexOf(LinkedList, void *);
 void * deleteElementAt(LinkedList *, int);
 LinkedList filter(LinkedList, MatchFunc, void*);
+void check_even(void *, void*);

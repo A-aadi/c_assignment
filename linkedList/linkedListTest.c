@@ -159,6 +159,33 @@ void test_for_deleteElementAt_invalid_index(){
 	void *deleted_element = deleteElementAt(&list,32);
 	assert(deleted_element == NULL);
 	assert(list.number_of_elements == 2);
+};
+
+int checkEven(void *item, void*hint){
+	int value = *(int *)item;
+	int num = *(int *)hint;
+	if(value % num == 0)
+		return 1;
+	return 0;
+};
+
+void test_for_filter_in_linkedList(){
+	LinkedList list = createList();
+	int ele1 = 2;
+	int ele2 = 7;
+	int ele3 = 8;
+
+	add_to_list(&list, &ele1);
+	add_to_list(&list, &ele2);
+	add_to_list(&list, &ele3);
+	int hint = 2;
+	MatchFunc *match_func = &checkEven; 
+	LinkedList filtered_list = filter(list, match_func,&hint);
+	assert(filtered_list.number_of_elements == 2);
+	int first_ele = *(int *)filtered_list.first_element->value;
+	assert(first_ele == 2);
+	int last_ele = *(int *)filtered_list.last_element->value;
+	assert(last_ele == 8);
 }
 
 int main(){
@@ -173,4 +200,5 @@ int main(){
 	test_for_index_of_method_for_invalid_elements();
 	test_for_deleteElementAt_valid_index();
 	test_for_deleteElementAt_invalid_index();
+	test_for_filter_in_linkedList();
 }
