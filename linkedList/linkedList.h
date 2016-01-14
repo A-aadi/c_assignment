@@ -11,6 +11,7 @@ typedef struct{
 
 typedef void (*ElementProcessor)(void *);
 typedef int (MatchFunc)(void *,void *);
+typedef void (ConvertFunc)(void *,void*,void *);
 
 LinkedList createList(void);
 int add_to_list(LinkedList *,void *);
@@ -23,3 +24,4 @@ void * deleteElementAt(LinkedList *, int);
 LinkedList filter(LinkedList, MatchFunc, void*);
 // void check_even(void *, void*);
 LinkedList reverse(LinkedList);
+LinkedList map(LinkedList, ConvertFunc, void * );

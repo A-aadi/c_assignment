@@ -188,6 +188,7 @@ void test_for_filter_in_linkedList(){
 	assert(last_ele == 8);
 };
 
+
 void test_for_reverse_method_in_linkedList(){
 	LinkedList list = createList();
 	int ele1 = 2;
@@ -205,6 +206,30 @@ void test_for_reverse_method_in_linkedList(){
 	assert(reversedList.number_of_elements == 3);
 };
 
+void incremnt_by_hint(void* hint, void * sourceItem, void *destinationItem){
+	int source = *(int *)sourceItem;
+	int num = *(int *)hint;
+	*(int *)destinationItem = num + source;
+};
+
+void test_for_map_in_LinkedList(){
+	LinkedList list = createList();
+	int ele1 = 2;
+	int ele2 = 7;
+	int ele3 = 8;
+	int ele4 = 9;
+
+	add_to_list(&list, &ele1);
+	add_to_list(&list, &ele2);
+	add_to_list(&list, &ele3);
+	add_to_list(&list, &ele4);
+	int hint = 5;
+	ConvertFunc *convertor = &incremnt_by_hint;
+	LinkedList mapped_list = map(list, convertor, &hint);
+	assert(*(int *)mapped_list.last_element->value == 14);
+	assert(*(int *)mapped_list.first_element->value == 7);
+	assert(mapped_list.number_of_elements == 4);
+}
 int main(){
 	test_for_create();
 	test_for_add_to_list();
@@ -219,4 +244,5 @@ int main(){
 	test_for_deleteElementAt_invalid_index();
 	test_for_filter_in_linkedList();
 	test_for_reverse_method_in_linkedList();
+	test_for_map_in_LinkedList();
 }

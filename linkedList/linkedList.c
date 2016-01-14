@@ -70,16 +70,15 @@ void * deleteElementAt(LinkedList *list, int index){
 	Element * next_ele = (Element *)getElementAt(*list, index+1);
 	Element * previous_ele = (Element *)getElementAt(*list, index-1);
 	if(actual_ele != NULL){
-		for(int i=index; i<list->number_of_elements; i++){
+		for(int i=index; i < list -> number_of_elements; i++){
 			if(index != 0)
 				previous_ele->next = actual_ele = next_ele;
 			else
 				actual_ele = list->first_element= next_ele;
-			list->number_of_elements--;
-			return actual_ele;
 		};
+		list->number_of_elements--;
 	};
-	return NULL;
+	return actual_ele;
 };
 
 LinkedList filter(LinkedList list,  MatchFunc *match_func, void * hint){
@@ -98,7 +97,17 @@ LinkedList reverse(LinkedList list){
 	for(int i = list.number_of_elements-1; i>=0; i--){
 		Element *ele = (Element *)getElementAt(list,i);
 		add_to_list(&reversed_list, ele->value);
-
 	}
 	return reversed_list;
+};
+
+LinkedList map(LinkedList list, ConvertFunc *convertor,void *hint){
+	LinkedList mapped_list = createList();
+	for(int i = 0; i<list.number_of_elements; i++){
+		void *value = malloc(sizeof(void *));
+		convertor(hint, list.first_element->value, value);
+		add_to_list(&mapped_list,  value);
+		list.first_element = list.first_element->next;
+	};
+	return mapped_list;
 };
