@@ -92,3 +92,13 @@ LinkedList filter(LinkedList list,  MatchFunc *match_func, void * hint){
 	}
 	return filtered_list;
 };
+
+LinkedList reverse(LinkedList list){
+	LinkedList reversed_list = createList();
+	for(int i = list.number_of_elements-1; i>=0; i--){
+		Element *ele = (Element *)getElementAt(list,i);
+		add_to_list(&reversed_list, ele->value);
+
+	}
+	return reversed_list;
+};

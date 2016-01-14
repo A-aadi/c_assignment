@@ -186,7 +186,24 @@ void test_for_filter_in_linkedList(){
 	assert(first_ele == 2);
 	int last_ele = *(int *)filtered_list.last_element->value;
 	assert(last_ele == 8);
-}
+};
+
+void test_for_reverse_method_in_linkedList(){
+	LinkedList list = createList();
+	int ele1 = 2;
+	int ele2 = 7;
+	int ele3 = 8;
+
+	add_to_list(&list, &ele1);
+	add_to_list(&list, &ele2);
+	add_to_list(&list, &ele3);
+	LinkedList reversedList = reverse(list);
+	int first_ele = *(int *)reversedList.first_element->value;
+	assert(first_ele == 8);
+	int last_ele = *(int *)reversedList.last_element->value;
+	assert(last_ele == 2);
+	assert(reversedList.number_of_elements == 3);
+};
 
 int main(){
 	test_for_create();
@@ -201,4 +218,5 @@ int main(){
 	test_for_deleteElementAt_valid_index();
 	test_for_deleteElementAt_invalid_index();
 	test_for_filter_in_linkedList();
+	test_for_reverse_method_in_linkedList();
 }

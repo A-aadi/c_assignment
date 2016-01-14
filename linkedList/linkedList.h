@@ -21,4 +21,5 @@ void * getElementAt(LinkedList, int);
 int indexOf(LinkedList, void *);
 void * deleteElementAt(LinkedList *, int);
 LinkedList filter(LinkedList, MatchFunc, void*);
-void check_even(void *, void*);
+// void check_even(void *, void*);
+LinkedList reverse(LinkedList);
