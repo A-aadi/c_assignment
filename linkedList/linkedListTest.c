@@ -68,7 +68,7 @@ void test_for_increment_of_each_element_by_1_of_list(){
 	assert(*((int *)list.last_element->value) == 9);
 };
 
-void test_for_get_element_at_valide_index(){
+void test_for_get_element_at_valid_index(){
 	LinkedList list = createList();
 	int ele1 = 12;
 	int ele2 = 7;
@@ -78,12 +78,14 @@ void test_for_get_element_at_valide_index(){
 	add_to_list(&list, &ele2);
 	add_to_list(&list, &ele3);
 	void  *ele = getElementAt(list, 0);
-	assert(*((int *)ele) == 12);
+	Element *e = (Element *)ele;
+	assert(*((int *)e->value) == 12);
 	ele = getElementAt(list, 2);
-	assert(*((int *)ele) == 8);
+	e = (Element *)ele;
+	assert(*((int *)e->value) == 8);
 };
 
-void test_for_get_element_at_invalide_index(){
+void test_for_get_element_at_invalid_index(){
 	LinkedList list = createList();
 	int ele1 = 12;
 	int ele2 = 7;
@@ -126,14 +128,49 @@ void test_for_index_of_method_for_invalid_elements(){
 	assert(index == -1);
 };
 
+void test_for_deleteElementAt_valid_index(){
+	LinkedList list = createList();
+	int ele1 = 12;
+	int ele2 = 7;
+	int ele3 = 8;
+
+	add_to_list(&list, &ele1);
+	add_to_list(&list, &ele2);
+	add_to_list(&list, &ele3);
+	void *deleted_element = deleteElementAt(&list,0);
+	assert(indexOf(list, &ele1) == -1);
+	assert(list.number_of_elements == 2);
+	int ele4 = 15;
+	add_to_list(&list, &ele4);
+	deleted_element = deleteElementAt(&list,1);	
+	assert(indexOf(list,&ele3) == -1);
+	deleted_element = deleteElementAt(&list,1);
+	assert(indexOf(list,&ele4) == -1);
+
+};
+
+void test_for_deleteElementAt_invalid_index(){
+	LinkedList list = createList();
+	int ele1 = 12;
+	int ele2 = 7;
+
+	add_to_list(&list, &ele1);
+	add_to_list(&list, &ele2);
+	void *deleted_element = deleteElementAt(&list,32);
+	assert(deleted_element == NULL);
+	assert(list.number_of_elements == 2);
+}
+
 int main(){
 	test_for_create();
 	test_for_add_to_list();
 	test_check_first_element_of_list();
 	test_check_last_element_of_list();
 	test_for_increment_of_each_element_by_1_of_list();
-	test_for_get_element_at_valide_index();
-	test_for_get_element_at_invalide_index();
+	test_for_get_element_at_valid_index();
+	test_for_get_element_at_invalid_index();
 	test_for_index_of_method_for_valid_elements();
 	test_for_index_of_method_for_invalid_elements();
+	test_for_deleteElementAt_valid_index();
+	test_for_deleteElementAt_invalid_index();
 }

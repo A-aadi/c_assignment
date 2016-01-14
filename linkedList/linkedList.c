@@ -23,7 +23,7 @@ int add_to_list(LinkedList *list, void *ele){
 		list->last_element->next = e;
 		list->last_element = e;
 	}
-	list->number_of_elements += 1;
+	list->number_of_elements++;
 	return list->number_of_elements;
 };
 
@@ -47,7 +47,7 @@ void * getElementAt(LinkedList list, int index){
 	int count = 0;
 	for(int i = 0; i < list.number_of_elements;i++){
 		if(count == index)
-			return list.first_element->value;
+			return list.first_element;
 		count++;
 		list.first_element = list.first_element->next;
 	}
@@ -65,5 +65,23 @@ int indexOf(LinkedList list, void *ele){
 	return -1;
 };
 
+void * deleteElementAt(LinkedList *list, int index){
+	void * actual_ele = getElementAt(*list, index);
+	Element * next_ele = (Element *)getElementAt(*list, index+1);
+	Element * previous_ele = (Element *)getElementAt(*list, index-1);
+	if(actual_ele != NULL){
+		for(int i=index; i<list->number_of_elements; i++){
+			if(index != 0)
+				previous_ele->next = actual_ele = next_ele;
+			else
+				actual_ele = list->first_element= next_ele;
+			list->number_of_elements--;
+			return actual_ele;
+		};
+	};
+	return NULL;
+};
 
+LinkedList filter(LinkedList list,  MatchFunc* func, void * hint){
 
+};
