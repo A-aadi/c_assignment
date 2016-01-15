@@ -12,6 +12,7 @@ typedef struct{
 typedef void (*ElementProcessor)(void *);
 typedef int (MatchFunc)(void *,void *);
 typedef void (ConvertFunc)(void *,void*,void *);
+typedef void* (Reducer)(void*, void*, void*);
 
 LinkedList createList(void);
 int add_to_list(LinkedList *,void *);
@@ -22,7 +23,8 @@ void * getElementAt(LinkedList, int);
 int indexOf(LinkedList, void *);
 void * deleteElementAt(LinkedList *, int);
 LinkedList filter(LinkedList, MatchFunc, void*);
-// void check_even(void *, void*);
 LinkedList reverse(LinkedList);
 LinkedList map(LinkedList, ConvertFunc, void * );
 int asArray(LinkedList list, void ** arr, int maxElements);
+void *reduce(LinkedList, Reducer, void *, void *);
+

@@ -247,6 +247,33 @@ void test_for_asArray(){
 	assert(*(int *)array[arr_length-1] = 8);
 };
 
+void *getGreatest(void* hint, void* previousItem, void* item){
+	int previousVlaue = *(int *)previousItem;
+	int nextValue = *(int *)item;
+	if(nextValue > previousVlaue){
+		previousItem = item;
+	}
+	return previousItem;
+};
+
+void test_for_reduce_in_linkedLink(){
+	LinkedList list = createList();
+	int ele1 = 2;
+	int ele2 = 7;
+	int ele3 = 8;
+	int ele4 = 12;
+
+	add_to_list(&list, &ele1);
+	add_to_list(&list, &ele2);
+	add_to_list(&list, &ele3);
+	add_to_list(&list, &ele4);
+	int hint = 4;
+	int initialValue = 1;
+	Reducer *reduced_func = &getGreatest;
+	void *reduced_ele = reduce(list, reduced_func, &hint, &initialValue);
+	assert(*(int *)reduced_ele = 12	);
+};
+
 int main(){
 	test_for_create();
 	test_for_add_to_list();
@@ -263,4 +290,5 @@ int main(){
 	test_for_reverse_method_in_linkedList();
 	test_for_map_in_LinkedList();
 	test_for_asArray();
+	test_for_reduce_in_linkedLink();
 }
