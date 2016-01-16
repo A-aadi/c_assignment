@@ -10,7 +10,7 @@ void test_for_create(){
 	assert(list.number_of_elements == 0);
 };
 
-void test_for_add_to_list(){
+void test_for_add_to_list_for_int(){
 	LinkedList list = createList();
 	int ele1 = 12;
 	int ele2 = 7;
@@ -24,7 +24,24 @@ void test_for_add_to_list(){
 	assert(*(int *)list.last_element->value == 8);
 };
 
-void test_check_first_element_of_list(){
+void test_for_add_to_list_for_mix_data_types(){
+	LinkedList list = createList();
+	char ele1 = 'a';
+	char ele2 = 'b';
+	float ele3 = 12.523;
+	double d = ele3;
+	double ele4 = 1234443344;
+	add_to_list(&list, &ele1);
+	add_to_list(&list, &ele2);
+	add_to_list(&list, &ele3);
+	int list_length = add_to_list(&list, &ele4);
+	assert(list_length == 4);
+	assert(*(char *)list.first_element->value == 'a');
+	assert(*(char *)list.first_element->next->value == 'b');
+	assert(*(float *)list.first_element->next->next->value == d);
+	assert(*(double *)list.last_element->value == 1234443344);
+};
+void test_check_first_element_of_list_for_int(){
 	LinkedList list = createList();
 	int ele1 = 12;
 	int ele2 = 7;
@@ -34,7 +51,17 @@ void test_check_first_element_of_list(){
 	assert(*(int *)list.first_element->value == 12);
 };
 
-void test_check_last_element_of_list(){
+void test_check_first_element_of_list_for_mix_data_type(){
+	LinkedList list = createList();
+	char ele1 = 'a';
+	double ele2 = 744463878634733;
+	add_to_list(&list, &ele1);
+	add_to_list(&list, &ele2);
+	void *first_ele = get_first_element(list);
+	assert(*(char *)list.first_element->value == ele1);	
+};
+
+void test_check_last_element_of_list_for_int(){
 	LinkedList list = createList();
 	int ele1 = 12;
 	int ele2 = 7;
@@ -48,12 +75,25 @@ void test_check_last_element_of_list(){
 	assert(*(int *)list.last_element->value == 8);
 };
 
+void test_check_last_element_of_list_for_char(){
+	LinkedList list = createList();
+	int ele1 = 12;
+	int ele2 = 7;
+	int ele3 = 'a';
+
+	add_to_list(&list, &ele1);
+	add_to_list(&list, &ele2);
+	add_to_list(&list, &ele3);
+
+	void *last_ele = get_last_element(list);
+	assert(*(char *)list.last_element->value == 'a');
+};
 void incremnt_by_one(void *ele){
 	int *element = (int *)ele;
 	*element = *element + 1;
 };
 
-void test_for_increment_of_each_element_by_1_of_list(){
+void test_for_increment_of_each_element_by_1_of_list_for_int(){
 	LinkedList list = createList();
 	int ele1 = 12;
 	int ele2 = 7;
@@ -68,7 +108,21 @@ void test_for_increment_of_each_element_by_1_of_list(){
 	assert(*((int *)list.last_element->value) == 9);
 };
 
-void test_for_get_element_at_valid_index(){
+void test_for_increment_of_each_element_by_1_charachter_of_list_for_char(){
+	LinkedList list = createList();
+	char ele1 = 'a';
+	char ele2 = 'b';
+	char ele3 = 'c';
+
+	add_to_list(&list, &ele1);
+	add_to_list(&list, &ele2);
+	add_to_list(&list, &ele3);
+	ElementProcessor e = &incremnt_by_one;
+	forEach(list, e);
+	assert(*((char *)list.first_element->value) == 'b');
+	assert(*((char *)list.last_element->value) == 'd');
+};
+void test_for_get_element_at_valid_index_for_int(){
 	LinkedList list = createList();
 	int ele1 = 12;
 	int ele2 = 7;
@@ -85,6 +139,39 @@ void test_for_get_element_at_valid_index(){
 	assert(*((int *)e->value) == 8);
 };
 
+void test_for_get_element_at_valid_index_for_char(){
+	LinkedList list = createList();
+	char ele1 = 'a';
+	char ele2 = 'b';
+	char ele3 = 'c';
+
+	add_to_list(&list, &ele1);
+	add_to_list(&list, &ele2);
+	add_to_list(&list, &ele3);
+	void  *ele = getElementAt(list, 0);
+	Element *e = (Element *)ele;
+	assert(*((char *)e->value) == 'a');
+	ele = getElementAt(list, 2);
+	e = (Element *)ele;
+	assert(*((char *)e->value) == 'c');
+};
+
+void test_for_get_element_at_valid_index_for_mix_data_type(){
+	LinkedList list = createList();
+	float ele1 = 1223.5;
+	char ele2 = 'b';
+	double ele3 = 122232437384373;
+
+	add_to_list(&list, &ele1);
+	add_to_list(&list, &ele2);
+	add_to_list(&list, &ele3);
+	void  *ele = getElementAt(list, 0);
+	Element *e = (Element *)ele;
+	assert(*((float *)e->value) == ele1);
+	ele = getElementAt(list, 2);
+	e = (Element *)ele;
+	assert(*((double *)e->value) == ele3);
+};
 void test_for_get_element_at_invalid_index(){
 	LinkedList list = createList();
 	int ele1 = 12;
@@ -100,7 +187,7 @@ void test_for_get_element_at_invalid_index(){
 	assert(ele == NULL);
 };
 
-void test_for_index_of_method_for_valid_elements(){
+void test_for_index_of_method_for_valid_elements_for_int(){
 	LinkedList list = createList();
 	int ele1 = 12;
 	int ele2 = 7;
@@ -114,6 +201,19 @@ void test_for_index_of_method_for_valid_elements(){
 	assert(index == 2);
 };
 
+void test_for_index_of_method_for_valid_elements_for_char(){
+	LinkedList list = createList();
+	int ele1 = 12;
+	char ele2 = 'c';
+	int ele3 = 8;
+
+	add_to_list(&list, &ele1);
+	add_to_list(&list, &ele2);
+	add_to_list(&list, &ele3);
+
+	int index = indexOf(list,&ele2);
+	assert(index == 1);
+};
 void test_for_index_of_method_for_invalid_elements(){
 	LinkedList list = createList();
 	int ele1 = 12;
@@ -276,13 +376,20 @@ void test_for_reduce_in_linkedLink(){
 
 int main(){
 	test_for_create();
-	test_for_add_to_list();
-	test_check_first_element_of_list();
-	test_check_last_element_of_list();
-	test_for_increment_of_each_element_by_1_of_list();
-	test_for_get_element_at_valid_index();
+	test_for_add_to_list_for_int();
+	test_for_add_to_list_for_mix_data_types();
+	test_check_first_element_of_list_for_int();
+	test_check_first_element_of_list_for_mix_data_type();
+	test_check_last_element_of_list_for_int();
+	test_check_last_element_of_list_for_char();
+	test_for_increment_of_each_element_by_1_of_list_for_int();
+	test_for_increment_of_each_element_by_1_charachter_of_list_for_char();
+	test_for_get_element_at_valid_index_for_int();
+	test_for_get_element_at_valid_index_for_char();
+	test_for_get_element_at_valid_index_for_mix_data_type();
 	test_for_get_element_at_invalid_index();
-	test_for_index_of_method_for_valid_elements();
+	test_for_index_of_method_for_valid_elements_for_int();
+	test_for_index_of_method_for_valid_elements_for_char();
 	test_for_index_of_method_for_invalid_elements();
 	test_for_deleteElementAt_valid_index();
 	test_for_deleteElementAt_invalid_index();

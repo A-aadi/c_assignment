@@ -16,7 +16,7 @@ int add_to_list(LinkedList *list, void *ele){
 
 	e->value = ele;
 	e->next = NULL;
-	if(list->first_element == NULL){
+	if(list->number_of_elements == 0){
 		list->first_element = list->last_element = e;
 		
 	}else{
