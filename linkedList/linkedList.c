@@ -95,6 +95,7 @@ LinkedList reverse(LinkedList list){
 	LinkedList reversed_list = createList();
 	for(int i = list.number_of_elements-1; i>=0; i--){
 		Element *ele = (Element *)getElementAt(list,i);
+		// printf("%d\n", );
 		add_to_list(&reversed_list, ele->value);
 	}
 	return reversed_list;

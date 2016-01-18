@@ -228,7 +228,7 @@ void test_for_index_of_method_for_invalid_elements(){
 	assert(index == -1);
 };
 
-void test_for_deleteElementAt_valid_index(){
+void test_for_deleteElementAt_valid_index_for_int(){
 	LinkedList list = createList();
 	int ele1 = 12;
 	int ele2 = 7;
@@ -246,9 +246,28 @@ void test_for_deleteElementAt_valid_index(){
 	assert(indexOf(list,&ele3) == -1);
 	deleted_element = deleteElementAt(&list,1);
 	assert(indexOf(list,&ele4) == -1);
-
 };
 
+void test_for_deleteElementAt_valid_index_for_mix_data_type(){
+	LinkedList list = createList();
+	char ele1 = 'a';
+	float ele2 = 7.235;
+	int ele3 = 8;
+
+	add_to_list(&list, &ele1);
+	add_to_list(&list, &ele2);
+	add_to_list(&list, &ele3);
+	void *deleted_element = deleteElementAt(&list,0);
+	assert(indexOf(list, &ele1) == -1);
+	assert(list.number_of_elements == 2);
+	int ele4 = 15;
+	add_to_list(&list, &ele4);
+	deleted_element = deleteElementAt(&list,1);	
+	assert(indexOf(list,&ele3) == -1);
+	deleted_element = deleteElementAt(&list,1);
+	assert(indexOf(list,&ele4) == -1);
+
+};
 void test_for_deleteElementAt_invalid_index(){
 	LinkedList list = createList();
 	int ele1 = 12;
@@ -269,7 +288,7 @@ int checkEven(void *item, void*hint){
 	return 0;
 };
 
-void test_for_filter_in_linkedList(){
+void test_for_filter_in_linkedList_for_int(){
 	LinkedList list = createList();
 	int ele1 = 2;
 	int ele2 = 7;
@@ -288,6 +307,24 @@ void test_for_filter_in_linkedList(){
 	assert(last_ele == 8);
 };
 
+void test_for_filter_in_linkedList_for_mix_data_type(){
+	LinkedList list = createList();
+	int ele1 = 2;
+	char ele2 = 'a';
+	float ele3 = 8.53435;
+
+	add_to_list(&list, &ele1);
+	add_to_list(&list, &ele2);
+	add_to_list(&list, &ele3);
+	int hint = 2;
+	MatchFunc *match_func = &checkEven; 
+	LinkedList filtered_list = filter(list, match_func,&hint);
+	assert(filtered_list.number_of_elements == 1);
+	int first_ele = *(int *)filtered_list.first_element->value;
+	assert(first_ele == 2);
+	int last_ele = *(int *)filtered_list.last_element->value;
+	assert(last_ele == 2);
+};
 
 void test_for_reverse_method_in_linkedList(){
 	LinkedList list = createList();
@@ -306,13 +343,29 @@ void test_for_reverse_method_in_linkedList(){
 	assert(reversedList.number_of_elements == 3);
 };
 
+void test_for_reverse_method_in_linkedList_for_mix_data_type(){
+	LinkedList list = createList();
+	int ele1 = 2;
+	char ele2 = 'a';
+	float ele3 = 2.455;
+	add_to_list(&list, &ele1);
+	add_to_list(&list, &ele2);
+	add_to_list(&list, &ele3);
+	LinkedList reversedList = reverse(list);
+	float first_ele = *(float *)reversedList.first_element->value;
+	assert(first_ele == ele3);
+	int last_ele = *(int *)reversedList.last_element->value;
+	assert(last_ele == 2);
+	assert(reversedList.number_of_elements == 3);
+};
+
 void incremnt_by_hint(void* hint, void * sourceItem, void *destinationItem){
 	int source = *(int *)sourceItem;
 	int num = *(int *)hint;
 	*(int *)destinationItem = num + source;
 };
 
-void test_for_map_in_LinkedList(){
+void test_for_map_in_LinkedList_for_int(){
 	LinkedList list = createList();
 	int ele1 = 2;
 	int ele2 = 7;
@@ -328,6 +381,25 @@ void test_for_map_in_LinkedList(){
 	LinkedList mapped_list = map(list, convertor, &hint);
 	assert(*(int *)mapped_list.last_element->value == 14);
 	assert(*(int *)mapped_list.first_element->value == 7);
+	assert(mapped_list.number_of_elements == 4);
+};
+
+void test_for_map_in_LinkedList_for_char(){
+	LinkedList list = createList();
+	char ele1 = 'a';
+	char ele2 = 'b';
+	char ele3 = 'c';
+	char ele4 = 'd';
+
+	add_to_list(&list, &ele1);
+	add_to_list(&list, &ele2);
+	add_to_list(&list, &ele3);
+	add_to_list(&list, &ele4);
+	char hint = 5;
+	ConvertFunc *convertor = &incremnt_by_hint;
+	LinkedList mapped_list = map(list, convertor, &hint);
+	assert(*(char *)mapped_list.last_element->value == 'i');
+	assert(*(char *)mapped_list.first_element->value == 'f');
 	assert(mapped_list.number_of_elements == 4);
 };
 
@@ -391,11 +463,15 @@ int main(){
 	test_for_index_of_method_for_valid_elements_for_int();
 	test_for_index_of_method_for_valid_elements_for_char();
 	test_for_index_of_method_for_invalid_elements();
-	test_for_deleteElementAt_valid_index();
+	test_for_deleteElementAt_valid_index_for_int();
+	test_for_deleteElementAt_valid_index_for_mix_data_type();
 	test_for_deleteElementAt_invalid_index();
-	test_for_filter_in_linkedList();
+	test_for_filter_in_linkedList_for_int();
+	test_for_filter_in_linkedList_for_mix_data_type();
 	test_for_reverse_method_in_linkedList();
-	test_for_map_in_LinkedList();
+	test_for_reverse_method_in_linkedList_for_mix_data_type();
+	test_for_map_in_LinkedList_for_int();
+	test_for_map_in_LinkedList_for_char();
 	test_for_asArray();
 	test_for_reduce_in_linkedLink();
 }
